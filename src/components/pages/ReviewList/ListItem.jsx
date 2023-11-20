@@ -9,7 +9,7 @@ import { Title } from '../../common/Typography'
 
 const ListItemContainer = tw(Link)`
   bg-white relative
-  flex flex-row items-center
+  flex flex-row items-center justify-between
   gap-4 md:gap-8 xl:gap-16
   cursor-pointer rounded-md 
   hover:(bg-neutral-50 shadow-lg)
@@ -40,11 +40,11 @@ const Artist = tw.div`
 `
 
 const PeekAndRating = tw(ColumnContainer)`
-  shrink-0 overflow-hidden grow gap-0 md:gap-1 hidden sm:flex
+  shrink-0 overflow-hidden gap-0 md:gap-1 hidden sm:flex pr-5
 `
 
 const Peek = tw(Title)`
-  font-serif md:text-2xl xl:text-4xl italic text-neutral-600 dark:text-neutral-200 min-w-0 whitespace-nowrap overflow-hidden text-ellipsis
+  font-serif md:text-2xl xl:text-4xl italic text-neutral-400 dark:text-neutral-400 min-w-0 whitespace-nowrap overflow-hidden text-ellipsis
 `
 
 const Stars = tw.div`
@@ -78,7 +78,7 @@ export default function ListItem({ review }) {
       </Info>
       <PeekAndRating>
         <Peek>{review.attributes.title}</Peek>
-        <Stars>
+        {/* <Stars>
           {
             Array.from({ length: review.attributes.rating }, (_, i) => {
               return <Star key={i} />
@@ -89,7 +89,7 @@ export default function ListItem({ review }) {
               return <HollowStar key={review.attributes.rating + i} />
             })
           }
-        </Stars>
+        </Stars> */}
       </PeekAndRating>
     </ListItemContainer>
   )
