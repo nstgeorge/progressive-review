@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_review_components_review_characterizations",
+  "info": {
+    "displayName": "ReviewCharacterizations",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "technicality": {
+      "type": "integer",
+      "max": 10,
+      "required": true,
+      "min": 0
+    },
+    "emotionality": {
+      "type": "integer",
+      "required": true,
+      "max": 10,
+      "min": 0
+    },
+    "polish": {
+      "type": "integer",
+      "required": true,
+      "max": 10,
+      "min": 0
+    },
+    "catchiness": {
+      "type": "integer",
+      "max": 10,
+      "min": 0,
+      "required": true
+    },
+    "musicality": {
+      "type": "integer",
+      "max": 10,
+      "min": 0,
+      "required": true
+    }
+  }
+}

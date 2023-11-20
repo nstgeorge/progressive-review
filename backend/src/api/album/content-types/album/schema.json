@@ -1,0 +1,84 @@
+{
+  "kind": "collectionType",
+  "collectionName": "albums",
+  "info": {
+    "singularName": "album",
+    "pluralName": "albums",
+    "displayName": "Album",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "cover": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "genre": {
+      "type": "enumeration",
+      "enum": [
+        "rock",
+        "metal",
+        "jazz",
+        "classical",
+        "electronic"
+      ],
+      "required": true
+    },
+    "releaseDate": {
+      "type": "date",
+      "required": true
+    },
+    "artists": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::artist.artist",
+      "inversedBy": "albums"
+    },
+    "review": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::review.review",
+      "mappedBy": "album"
+    },
+    "characteristics": {
+      "type": "component",
+      "repeatable": false,
+      "component": "review-components.review-characterizations"
+    },
+    "notableLyric": {
+      "type": "richtext"
+    },
+    "notableLyricTrack": {
+      "type": "string"
+    },
+    "albumLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "review-components.album-link"
+    },
+    "vocals": {
+      "type": "enumeration",
+      "enum": [
+        "None",
+        "Clean",
+        "Mixed",
+        "Harsh"
+      ],
+      "required": true
+    }
+  }
+}

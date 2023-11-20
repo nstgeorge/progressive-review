@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_review_components_album_links",
+  "info": {
+    "displayName": "albumLink"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    }
+  }
+}

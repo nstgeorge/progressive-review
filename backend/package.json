@@ -1,0 +1,36 @@
+{
+  "name": "progressive-review-backend",
+  "private": true,
+  "version": "0.1.0",
+  "description": "The Progressive Review backend.",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "dependencies": {
+    "@strapi/plugin-i18n": "4.5.5",
+    "@strapi/plugin-users-permissions": "4.5.5",
+    "@strapi/strapi": "4.5.5",
+    "better-sqlite3": "7.4.6",
+    "libvips": "^0.0.2",
+    "sharp": "^0.31.3"
+  },
+  "author": {
+    "name": "Nate St. George"
+  },
+  "strapi": {
+    "uuid": "1d802321-c69d-4db0-b0a6-aeee72582afa"
+  },
+  "engines": {
+    "node": ">=14.19.1 <=18.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "css-loader": "^6.7.3",
+    "pluralize": "^8.0.0",
+    "style-loader": "^3.3.1"
+  }
+}

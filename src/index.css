@@ -1,13 +1,41 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://use.typekit.net/jzr5eit.css");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  overflow-x: hidden;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Radar chart styling */
+
+.shape {
+  fill-opacity: 0.05;
+  stroke-width: 2px;
+  stroke: #a3a3a3;
+  transition: all 0.2s ease-in-out;
+}
+
+.shape:hover {
+  fill-opacity: 0.1;
+}
+
+.caption {
+  font-family: 'elza', sans-serif;
+}
+
+.scale {
+  fill: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .shape {
+    stroke: #fafafa;
+    fill: #fafafa;
+  }
+
+  .caption {
+    fill: #a3a3a3;
+    text-shadow: #262626 1px 1px 0;
+  }
 }
