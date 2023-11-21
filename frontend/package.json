@@ -46,7 +46,7 @@
   "scripts": {
     "build": "vite build",
     "serve": "vite preview",
-    "start": "concurrently --kill-others \"docker-compose -f docker-compose.dev.yml up --build\" \"vite\""
+    "start": "vite"
   },
   "eslintConfig": {
     "extends": [

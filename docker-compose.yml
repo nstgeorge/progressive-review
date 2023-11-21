@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  nginx:
+    container_name: progreview-nginx
+    depends_on:
+      - backend
+      - frontend
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+  frontend:
+    container_name: progreview-frontend
+    build:
+      context: ./frontend
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app:cached
+  backend:
+    build:
+      context: ./backend
+    container_name: progreview-cms
+    volumes:
+      - ./backend/src:/opt/src # Changes to the API
+      - ./backend/public/uploads:/opt/public/uploads # Uploaded files
+      - ./backend/.tmp:/opt/.tmp # Database

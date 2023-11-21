@@ -45,22 +45,22 @@ export default defineConfig({
   },
   server: {
     host: true,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:1337/api/',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      },
-      '/uploads': {
-        target: 'http://localhost:1337/uploads/',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/uploads/, '')
-      },
-      '/admin': {
-        target: 'http://localhost:1337/admin/',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/admin/, ''),
-      }
-    }
+    // proxy: {
+    //   '/api': {
+    //     target: 'http://localhost:1337/api/',
+    //     changeOrigin: true,
+    //     rewrite: (path) => path.replace(/^\/api/, '')
+    //   },
+    //   '/uploads': {
+    //     target: 'http://localhost:1337/uploads/',
+    //     changeOrigin: true,
+    //     rewrite: (path) => path.replace(/^\/uploads/, '')
+    //   },
+    //   '/admin': {
+    //     target: 'http://localhost:1337/admin/',
+    //     changeOrigin: true,
+    //     rewrite: (path) => path.replace(/^\/admin/, ''),
+    //   }
+    // }
   }
 });

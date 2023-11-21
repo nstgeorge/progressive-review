@@ -223,7 +223,7 @@ export default function Review(props) {
   }, [])
 
   const album = review.data.attributes.album.data.attributes
-  const coverUrl = new URL(album.cover.data.attributes.url, BASE_URL)
+  const coverUrl = new URL(album.cover.data.attributes.url.slice(1), BASE_URL)
   const rDate = new Date(album.releaseDate)
   const reviewPublishDate = new Date(review.data.attributes.publishedAt)
   const reviewUpdateDate = new Date(review.data.attributes.updatedAt)

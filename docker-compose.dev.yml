@@ -1,34 +1,14 @@
 version: '3.8'
 services:
+  frontend:
+    build:
+      dockerfile: Dockerfile.dev
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile.strapi.dev
-    ports:
-      - 1337:1337
+      dockerfile: Dockerfile.dev
     environment:
       NODE_ENV: development
-    container_name: progressive-review-server-dev
-    volumes:
-      - ./backend/config:/opt/config
-      - ./backend/src:/opt/src
-      - ./backend/package.json:/opt/package.json
-      - ./backend/package-lock.json:/opt/package-lock.json
-      - ./backend/.env:/opt/.env
-      - ./backend/public/uploads:/opt/public/uploads
-      - ./backend/.tmp:/opt/.tmp
-  # frontend:
-  #   build:
-  #     context: ./
-  #     target: development
-  #   ports:
-  #     - 3000:3000
-  #   links:
-  #     - backend
-  #   container_name: progressive-review-ui-dev
-  #   stdin_open: true
-  #   volumes:
-  #     - ./:/usr/src/app/frontend:delegated
-  #     - /usr/src/app/frontend/node_modules
-  #   environment:
-  #     WATCHPACK_POLLING: "true"
+      PUBLIC_URL: http://localhost/cms
