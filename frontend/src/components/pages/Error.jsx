@@ -14,8 +14,8 @@ export default function Error(props) {
   return (
     <Container>
       <ColumnContainer>
-        <FourOhFour>404.</FourOhFour>
-        <MutedText>You won't find us here.</MutedText>
+        <FourOhFour>The song is over.</FourOhFour>
+        <MutedText>Something went wrong. Maybe just go back and try again?</MutedText>
       </ColumnContainer>
     </Container>
   )

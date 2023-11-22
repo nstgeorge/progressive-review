@@ -34,14 +34,21 @@ export default function ReviewList(props) {
     return (
       <Loader loading={reviewsLoading}>
         <PageContainer>
-          <BigTextContainer>
+          {/* <BigTextContainer>
             <BigText>The music pushing us forward.</BigText>
-          </BigTextContainer>
-          <List>
-            {reviews?.data.map((review) => (
-              <ListItem review={review} key={review.id} />
-            ))}
-          </List>
+          </BigTextContainer> */}
+          {
+            reviews?.data
+            ?  <List>
+                {reviews?.data.map((review) => (
+                  <ListItem review={review} key={review.id} />
+                ))}
+              </List>
+            : <BigTextContainer>
+                <BigText>Couldn't get reviews.</BigText>
+                <span>I'm sure there will be a few here soon.</span>
+              </BigTextContainer>
+          }
         </PageContainer>
       </Loader>
     )
