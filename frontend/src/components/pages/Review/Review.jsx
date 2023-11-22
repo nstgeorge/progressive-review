@@ -1,14 +1,13 @@
 import { Transition } from '@headlessui/react'
 import { ChatBubbleLeftIcon, MusicalNoteIcon } from '@heroicons/react/20/solid'
 import { InformationCircleIcon } from '@heroicons/react/24/outline'
-import { Apple, Bandcamp, Spotify } from '@icons-pack/react-simple-icons'
+import { SiApple, SiApplemusicHex, SiBandcamp, SiBandcampHex, SiSpotify, SiSpotifyHex } from '@icons-pack/react-simple-icons'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link, useParams } from 'react-router-dom'
 import RadarChart from 'react-svg-radar-chart'
 import { Tooltip } from 'react-tooltip'
-import { siApplemusic, siBandcamp, siSpotify } from 'simple-icons'
 import styled, { css } from 'styled-components'
 import tw from 'twin.macro'
 import { BASE_URL } from '../../../hooks/api'
@@ -194,15 +193,15 @@ const CharacteristicHelpIcon = tw(Link)`
 `
 
 const SERVICE_COLOR_MAP = {
-  'Apple Music': siApplemusic,
-  Spotify: siSpotify,
-  Bandcamp: siBandcamp
+  'Apple Music': SiApplemusicHex,
+  Spotify: SiSpotifyHex,
+  Bandcamp: SiBandcampHex
 }
 
 const SERVICE_ICON_MAP = {
-  'Apple Music': Apple,
-  Spotify: Spotify,
-  Bandcamp: Bandcamp
+  'Apple Music': SiApple,
+  Spotify: SiSpotify,
+  Bandcamp: SiBandcamp
 }
 
 export default function Review(props) {
@@ -278,7 +277,7 @@ export default function Review(props) {
         <Content>
           <Links>
             {album.albumLinks.map((albumLink) => (
-              <LinkBadge target='_blank' href={albumLink.link} color={SERVICE_COLOR_MAP[albumLink.name].hex} key={albumLink.link}>
+              <LinkBadge target='_blank' href={albumLink.link} color={SERVICE_COLOR_MAP[albumLink.name]} key={albumLink.link}>
                 <LinkIcon as={SERVICE_ICON_MAP[albumLink.name]} />
                 <span>{albumLink.name}</span>
               </LinkBadge>
