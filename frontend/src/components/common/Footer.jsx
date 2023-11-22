@@ -1,6 +1,6 @@
-import { Instagram } from '@icons-pack/react-simple-icons'
 import { Link } from 'react-router-dom'
 import tw from 'twin.macro'
+import { ReactComponent as Instagram } from './resources/instagram.svg'
 import { ReactComponent as CircleLogo } from './resources/logo_circle.svg'
 
 const FooterContainer = tw.div`
@@ -46,6 +46,10 @@ const StyledCircleLogo = tw(CircleLogo)`
   h-48 text-neutral-50 fill-current md:flex-1 order-1 md:order-none transform-gpu
 `
 
+const InstagramLogo = tw(Instagram)`
+    fill-white w-7 h-7
+`
+
 export default function Footer(props) {
   return (
     <FooterContainer>
@@ -56,7 +60,7 @@ export default function Footer(props) {
 
         <StyledCircleLogo />
         <FooterChild>
-          <FooterLink as="a" href={'https://instagram.com/theprogressivereview'}><Instagram /></FooterLink>
+          <FooterLink as="a" href={'https://instagram.com/theprogressivereview'}><InstagramLogo /></FooterLink>
         </FooterChild>
       </FooterContent>
 
