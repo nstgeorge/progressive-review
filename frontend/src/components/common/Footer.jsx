@@ -60,7 +60,7 @@ export default function Footer(props) {
 
         <StyledCircleLogo />
         <FooterChild>
-          <FooterLink as="a" href={'https://instagram.com/theprogressivereview'}><InstagramLogo /></FooterLink>
+          <FooterLink as="a" href={'https://instagram.com/progressivereview'}><InstagramLogo /></FooterLink>
         </FooterChild>
       </FooterContent>
 
