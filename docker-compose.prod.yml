@@ -6,14 +6,12 @@ services:
     deploy:
       restart_policy:
         condition: always
-        max_attempts: 3
   backend:
     build:
       dockerfile: Dockerfile.prod
     deploy:
       restart_policy:
         condition: always
-        max_attempts: 3
     environment:
       NODE_ENV: production
       PUBLIC_URL: http://theprogressivereview.com/cms
