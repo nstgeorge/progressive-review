@@ -1,4 +1,4 @@
-FROM node:16-alpine AS strapi-dev
+FROM node:20-alpine AS strapi-dev
 # Installing libvips-dev for sharp compatibility
 RUN apk update && apk add build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev
 ARG NODE_ENV=development
