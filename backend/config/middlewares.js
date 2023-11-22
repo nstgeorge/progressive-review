@@ -1,5 +1,6 @@
 module.exports = [
   'strapi::errors',
+  'strapi::poweredBy',
   {
     name: 'strapi::security',
     config: {
@@ -20,7 +21,6 @@ module.exports = [
       origin: ['http://localhost', 'http://www.theprogressivereview.com']
     }
   },
-  'strapi::poweredBy',
   'strapi::logger',
   'strapi::query',
   'strapi::body',
