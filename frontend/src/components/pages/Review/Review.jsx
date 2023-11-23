@@ -1,13 +1,14 @@
 import { Transition } from '@headlessui/react'
 import { ChatBubbleLeftIcon, MusicalNoteIcon } from '@heroicons/react/20/solid'
 import { InformationCircleIcon } from '@heroicons/react/24/outline'
-import { SiApple, SiApplemusicHex, SiBandcamp, SiBandcampHex, SiSpotify, SiSpotifyHex } from '@icons-pack/react-simple-icons'
+// import { Siapple, Sibandcamp, Sispotify } from '@icons-pack/react-simple-icons'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link, useParams } from 'react-router-dom'
 import RadarChart from 'react-svg-radar-chart'
 import { Tooltip } from 'react-tooltip'
+import { siApple, siApplemusic, siBandcamp, siSpotify } from 'simple-icons'
 import styled, { css } from 'styled-components'
 import tw from 'twin.macro'
 import { BASE_URL } from '../../../hooks/api'
@@ -139,9 +140,17 @@ const LinkBadge = styled.a(({ color }) => [
   `
 ])
 
-const LinkIcon = tw.div`
-  h-4 w-4 md:h-6 md:w-6 p-0.5
-`
+const LinkIcon = styled.div(({ mask, color }) => [
+  tw`
+    h-4 w-4 md:h-6 md:w-6 p-0.5
+  `,
+  css`
+    mask-image: url(${mask});
+    mask-size: auto;
+    mask-repeat: no-repeat;
+    background-color: #${color};
+  `
+])
 
 const PublishDates = tw.div`
   text-neutral-500 text-base mt-2 xl:-mt-12
@@ -193,15 +202,15 @@ const CharacteristicHelpIcon = tw(Link)`
 `
 
 const SERVICE_COLOR_MAP = {
-  'Apple Music': SiApplemusicHex,
-  Spotify: SiSpotifyHex,
-  Bandcamp: SiBandcampHex
+  'Apple Music': siApplemusic.hex,
+  Spotify: siSpotify.hex,
+  Bandcamp: siBandcamp.hex
 }
 
 const SERVICE_ICON_MAP = {
-  'Apple Music': SiApple,
-  Spotify: SiSpotify,
-  Bandcamp: SiBandcamp
+  'Apple Music': siApple.svg,
+  Spotify: siSpotify.svg,
+  Bandcamp: siBandcamp.svg
 }
 
 export default function Review(props) {
@@ -278,7 +287,7 @@ export default function Review(props) {
           <Links>
             {album.albumLinks.map((albumLink) => (
               <LinkBadge target='_blank' href={albumLink.link} color={SERVICE_COLOR_MAP[albumLink.name]} key={albumLink.link}>
-                <LinkIcon as={SERVICE_ICON_MAP[albumLink.name]} />
+                <LinkIcon mask={`data:image/svg+xml;utf8,${encodeURIComponent(SERVICE_ICON_MAP[albumLink.name])}`} color={SERVICE_COLOR_MAP[albumLink.name]} />
                 <span>{albumLink.name}</span>
               </LinkBadge>
             ))}

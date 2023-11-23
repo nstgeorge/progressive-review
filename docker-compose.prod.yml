@@ -1,5 +1,9 @@
 version: '3.8'
 services:
+  nginx:
+    volumes:
+      - ./nginx/nginx.prod.conf:/etc/nginx/conf.d/default.conf
+      - ./certbot/www:/var/www/certbot/:ro
   frontend:
     build:
       dockerfile: Dockerfile.prod
@@ -15,3 +19,8 @@ services:
     environment:
       NODE_ENV: production
       PUBLIC_URL: http://theprogressivereview.com/cms
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
