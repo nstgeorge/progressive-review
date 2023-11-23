@@ -65,7 +65,8 @@ text-neutral-400 italic md:text-lg -mt-1.5
 
 export default function ListItem({ review }) {
   const album = review.attributes.album.data.attributes
-  const coverUrl = new URL(album.cover.data.attributes.formats.thumbnail.url.slice(1), BASE_URL)
+  const url = album.cover.data.attributes.formats.thumbnail.url
+  const coverUrl = new URL(url[0] === '/' ? url.slice(1) : url, BASE_URL)
   const rDate = new Date(album.releaseDate)
 
   return (
