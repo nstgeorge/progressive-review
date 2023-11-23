@@ -19,7 +19,7 @@ module.exports = [
       enabled: true,
       headers: ["Content-Type", "Authorization", "Origin", "Accept"],
       keepHeaderOnError: true,
-      origin: ['http://localhost', 'http://www.theprogressivereview.com']
+      origin: ['http://localhost', 'https://www.theprogressivereview.com']
     }
   },
   'strapi::logger',
