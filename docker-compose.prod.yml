@@ -19,7 +19,7 @@ services:
         condition: always
     environment:
       NODE_ENV: production
-      PUBLIC_URL: http://www.theprogressivereview.com/cms
+      PUBLIC_URL: https://www.theprogressivereview.com/cms
   certbot:
     image: certbot/certbot:latest
     container_name: progreview-certbot
