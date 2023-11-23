@@ -7,7 +7,7 @@ import useTabs from '../../../hooks/useTabs'
 import Markdown from '../../common/Markdown'
 
 const AboutContainer = tw.div`
-  max-w-prose mx-auto text-xl
+  max-w-prose mx-auto px-5 text-xl
 `
 
 const TabList = tw(Tab.List)`

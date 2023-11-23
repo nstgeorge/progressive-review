@@ -14,6 +14,12 @@ const StyledHr = tw.hr`
   dark:border-neutral-600
 `
 
+const ContentLink = tw.a`
+  text-red-500 visited:text-purple-500
+  dark:(text-red-500 visited:text-purple-400)
+  underline
+`
+
 export default function Markdown({ markdown }) {
   return (
     <Remark
@@ -27,7 +33,8 @@ export default function Markdown({ markdown }) {
           ),
           h2: ({ node, ...props }) => <Header2 {...props} />,
           h3: ({ node, ...props }) => <Header3 {...props} />,
-          p: ({ node, ...props }) => <Paragraph {...props} />
+          p: ({ node, ...props }) => <Paragraph {...props} />,
+          a: ({ node, ...props }) => <ContentLink {...props} />
         }
       }}
     >
