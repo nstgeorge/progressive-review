@@ -38,14 +38,14 @@ export default function ReviewList(props) {
             <BigText>The music pushing us forward.</BigText>
           </BigTextContainer> */}
           {
-            reviews?.data
+            reviews?.data && reviews?.data?.length > 0
             ?  <List>
                 {reviews?.data.map((review) => (
                   <ListItem review={review} key={review.id} />
                 ))}
               </List>
             : <BigTextContainer>
-                <BigText>Couldn't get reviews.</BigText>
+                <BigText>There aren't any reviews yet.</BigText>
                 <span>I'm sure there will be a few here soon.</span>
               </BigTextContainer>
           }
