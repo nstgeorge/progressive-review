@@ -8,6 +8,7 @@ module.exports = [
         useDefaults: true,
         directives: {
           'connect-src': ["'self'", 'http:', 'https:'],
+          'img-src': ['self', 'data:', 'cdn.jsdelivr.net', 'strapi.io', `${env('AWS_BUCKET_NAME')}.s3.${env('AWS_REGION')}.amazonaws.com`],
           upgradeInsecureRequests: null,
         },
       },

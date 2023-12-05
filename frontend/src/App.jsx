@@ -1,3 +1,4 @@
+import { motion, useScroll } from 'framer-motion';
 import { Link, Outlet, ScrollRestoration, useNavigation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'twin.macro';
@@ -33,10 +34,19 @@ const PageContent = styled.div(({ loading }) => [
   loading && tw`opacity-50`
 ])
 
+const ProgressBar = styled(motion.div)(({ isVisible }) => [
+  tw`
+    absolute bottom-0 left-0 right-0
+    h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-red-500 bg-fixed
+    origin-left opacity-0 transition-opacity
+  `,
+  isVisible && tw`opacity-100`
+])
+
 function App() {
   const navigation = useNavigation()
   const params = useParams()
-
+  const { scrollYProgress } = useScroll()
 
   return (
     <AppContainer>
@@ -44,6 +54,7 @@ function App() {
         <Strikethrough dark={params.reviewId ? 'true' : undefined} className="group" to={"/"}>
           <SiteName dark={params.reviewId ? 'true' : undefined}>THE PROGRESSIVE REVIEW</SiteName>
         </Strikethrough>
+        <ProgressBar style={{ scaleX: scrollYProgress }} isVisible={params.reviewId ? 'true' : undefined} />
       </TopBar>
       <PageContent loading={navigation.state === 'loading' ? 'true' : undefined}>
         <Outlet />

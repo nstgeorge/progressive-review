@@ -19,15 +19,19 @@ const Blur = tw(motion.div)`
   [&>div]:(absolute top-0 left-0 overflow-hidden saturate-50 block!)
 `
 
-
 export default function Image({ src, hash, width, height, ...others} ) {
   const [isLoaded, setIsLoaded]  = useState(false)
 
   return (
     <Container {...others}>
-      <Blur>
-        <Blurhash hash={hash} width={width} height={height} punch={0} {...others} />
-      </Blur>
+      {
+        hash 
+        ?
+        <Blur>
+          <Blurhash hash={hash} width={width} height={height} punch={0} {...others} />
+        </Blur>
+        : <></>
+      }
       <RealImage src={src} width={width} height={height} {...others} onLoad={() => setIsLoaded(true)} isLoaded={isLoaded} />
     </Container>
   )

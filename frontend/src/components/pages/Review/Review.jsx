@@ -169,7 +169,8 @@ const CharacteristicsContainer = tw.div`
   relative
   scale-90 md:scale-100
   flex flex-col px-2 lg:px-10
-  bg-neutral-50 dark:bg-neutral-800 rounded-lg shadow-xl pb-10 pt-8 lg:pt-5 mt-10 mx-auto
+  bg-gradient-to-tl
+  from-neutral-100 to-neutral-50 dark:(from-neutral-900 to-neutral-800) rounded-lg shadow-xl pb-10 pt-8 lg:pt-5 mt-10 mx-auto
 `
 
 
