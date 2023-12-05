@@ -4,6 +4,9 @@ module.exports = ({ env }) => [
   {
     name: 'strapi::security',
     config: {
+      referrerPolicy: {
+        policy: 'origin-when-cross-origin'
+      },
       contentSecurityPolicy: {
         useDefaults: true,
         directives: {
