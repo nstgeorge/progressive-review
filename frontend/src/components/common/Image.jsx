@@ -21,7 +21,7 @@ const Blur = tw(motion.div)`
 
 
 export default function Image({ src, hash, width, height, ...others} ) {
-  const [isLoaded, _setIsLoaded]  = useState(false)
+  const [isLoaded, setIsLoaded]  = useState(false)
 
   return (
     <Container {...others}>
