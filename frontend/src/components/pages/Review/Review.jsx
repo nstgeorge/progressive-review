@@ -3,7 +3,8 @@ import { ChatBubbleLeftIcon, MusicalNoteIcon } from '@heroicons/react/20/solid'
 import { InformationCircleIcon } from '@heroicons/react/24/outline'
 // import { Siapple, Sibandcamp, Sispotify } from '@icons-pack/react-simple-icons'
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useScroll, useTransform } from 'framer-motion'
+import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link, useParams } from 'react-router-dom'
 import RadarChart from 'react-svg-radar-chart'
@@ -15,6 +16,7 @@ import { BASE_URL } from '../../../hooks/api'
 import { reviewQuery } from '../../../hooks/loaders/reviewLoader'
 import { commaify } from '../../../hooks/util/commify'
 import { ColumnContainer, PageContainer } from '../../common/Container'
+import Image from '../../common/Image'
 import Markdown from '../../common/Markdown'
 import { Title } from '../../common/Typography'
 
@@ -71,8 +73,8 @@ const LargeHr = tw.div`
 `
 
 const CoverText = tw.div`
-  flex flex-row flex-wrap justify-between items-baseline lg:text-lg text-neutral-300 font-bold drop-shadow-xl h-7
-  text-sm md:text-base
+  flex flex-row flex-wrap justify-between items-baseline 2xl:text-base text-neutral-300 font-bold drop-shadow-xl h-7
+  text-xs lg:text-sm
   [&>a]:(text-neutral-500 font-normal text-xs lg:text-base)
 `
 
@@ -82,18 +84,13 @@ const BigCoverContainer = tw.div`
   overflow-hidden flex justify-center items-center
 `
 
-const BigCover = styled.img(({ scrollOffset }) => [
-  tw`w-full blur-xl absolute brightness-50 duration-300 transform-gpu ease-in-out
-    group-hover:(brightness-75 blur-md)`,
-  css`
-    transform: scale(1.3) translateY(${-(scrollOffset / 4.5)}px);
-    transition-property: filter;
-    will-change: transform;
-  `
-])
+const BigCover = tw(Image)`
+  w-full blur-xl absolute! brightness-50 duration-300
+  group-hover:(brightness-75 blur-sm)
+`
 
 const FilmGrain = tw.img`
-  w-full absolute mix-blend-screen opacity-20 group-hover:blur-sm transition-all
+  w-full absolute mix-blend-screen opacity-30 group-hover:blur-sm transition-all
 `
 
 const ContentContainer = tw.div`
@@ -142,7 +139,7 @@ const LinkBadge = styled.a(({ color }) => [
 
 const LinkIcon = styled.div(({ mask, color }) => [
   tw`
-    h-4 w-4 md:h-6 md:w-6 p-0.5
+    h-4 w-4 md:h-5 md:w-5 p-1
   `,
   css`
     mask-image: url(${mask});
@@ -216,23 +213,19 @@ const SERVICE_ICON_MAP = {
 export default function Review(props) {
   const { reviewId } = useParams()
   const { data: review } = useQuery(reviewQuery(reviewId))
-  const [scrollY, setScrollY] = useState(0)
   const [showAlbumArt, setShowAlbumArt] = useState(false)
+  const { scrollYProgress } = useScroll()
 
-  const handleScroll = () => {
-    setScrollY(window.scrollY)
+  function useParallax(value, distance) {
+    return useTransform(value, [0, 1], [-distance, distance])
   }
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+  const y = useParallax(scrollYProgress, 600);
 
   const album = review.data.attributes.album.data.attributes
-  const url = album.cover.data.attributes.url
-  const coverUrl = new URL(url[0] === '/' ? url.slice(1) : url, BASE_URL)
+  const cover = album.cover.data.attributes
+  const coverUrl = new URL(cover.url[0] === '/' ? cover.url.slice(1) : cover.url, BASE_URL)
+  const coverHash = album.cover.data.attributes.blurhash
   const rDate = new Date(album.releaseDate)
   const reviewPublishDate = new Date(review.data.attributes.publishedAt)
   const reviewUpdateDate = new Date(review.data.attributes.updatedAt)
@@ -254,7 +247,7 @@ export default function Review(props) {
         <title>{album.title} - The Progressive Review</title>
       </Helmet>
       <BigCoverContainer className="group" onClick={() => setShowAlbumArt(true)}>
-        <BigCover src={coverUrl} scrollOffset={scrollY} />
+        <BigCover src={coverUrl} hash={coverHash} width={1200} height={1200} style={{ y, scale: 1.1 }} />
         <FilmGrain src={'/img/filmgrain.jpg'} />
         <CoverTextContainer>
           <Transition show={true} appear={true}

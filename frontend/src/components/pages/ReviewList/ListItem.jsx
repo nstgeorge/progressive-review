@@ -5,6 +5,7 @@ import tw from 'twin.macro'
 import { BASE_URL } from '../../../hooks/api'
 import { commaify } from '../../../hooks/util/commify'
 import { ColumnContainer } from '../../common/Container'
+import Image from '../../common/Image'
 import { Title } from '../../common/Typography'
 
 const ListItemContainer = tw(Link)`
@@ -23,8 +24,8 @@ const ListItemContainer = tw(Link)`
   )
 `
 
-const CoverImage = tw.img`
-  rounded-md h-16 md:h-32
+const CoverImage = tw(Image)`
+  rounded-md max-h-16 md:max-h-32 max-w-[4rem] md:max-w-[8rem]
 `
 
 const Info = tw.div`
@@ -65,13 +66,14 @@ text-neutral-400 italic md:text-lg -mt-1.5
 
 export default function ListItem({ review }) {
   const album = review.attributes.album.data.attributes
-  const url = album.cover.data.attributes.formats.thumbnail.url
-  const coverUrl = new URL(url[0] === '/' ? url.slice(1) : url, BASE_URL)
+  const cover = album.cover.data.attributes.formats.thumbnail
+  const coverUrl = new URL(cover.url[0] === '/' ? cover.url.slice(1) : cover.url, BASE_URL)
+  const coverHash = album.cover.data.attributes.blurhash
   const rDate = new Date(album.releaseDate)
 
   return (
     <ListItemContainer to={`review/${review.id}`}>
-      <CoverImage src={coverUrl} />
+      <CoverImage src={coverUrl} hash={coverHash} width={156} height={156} />
       <Info>
         <AlbumTitle>{album.title}</AlbumTitle>
         <Artist>{commaify(album.artists.data.map(artist => artist.attributes.name))}</Artist>
