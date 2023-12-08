@@ -14,14 +14,7 @@ services:
     container_name: progreview-frontend
     build:
       context: ./frontend
-    volumes:
-      - /app/node_modules
-      - ./frontend:/app:cached
   backend:
+    container_name: progreview-cms
     build:
       context: ./backend
-    container_name: progreview-cms
-    volumes:
-      - ./backend/src:/opt/src # Changes to the API
-      - ./backend/public/uploads:/opt/public/uploads # Uploaded files
-      - ./backend/.tmp:/opt/.tmp # Database

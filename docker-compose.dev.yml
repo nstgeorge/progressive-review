@@ -22,6 +22,9 @@ services:
     stdin_open: true
     environment:
       - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app:cached
   backend:
     depends_on:
       - postgres
@@ -31,6 +34,9 @@ services:
       NODE_ENV: development
       PUBLIC_URL: http://localhost/cms
       DATABASE_HOST: postgres
+    volumes:
+      - ./backend/src:/opt/src # Changes to the API
+      - ./backend/public/uploads:/opt/public/uploads # Uploaded files
 
 secrets:
   postgres_user:
