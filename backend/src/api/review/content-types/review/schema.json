@@ -4,7 +4,8 @@
   "info": {
     "singularName": "review",
     "pluralName": "reviews",
-    "displayName": "Review"
+    "displayName": "Review",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -23,7 +24,8 @@
       "type": "decimal",
       "max": 10,
       "min": 0,
-      "required": true
+      "required": true,
+      "private": true
     },
     "album": {
       "type": "relation",

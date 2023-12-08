@@ -24,6 +24,7 @@ const Strikethrough = styled(Link)(({ dark }) => [
 const SiteName = styled.span(({ dark }) => [
   tw`
     font-serif text-xl md:text-3xl font-semibold bg-white px-3 transition-all md:group-hover:px-5 group-hover:cursor-pointer
+    no-underline! border-0!
     dark:(bg-neutral-900 text-white)
   `,
   dark && tw`bg-neutral-900`

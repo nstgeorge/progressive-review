@@ -21,6 +21,7 @@ const ListItemContainer = tw(Link)`
   dark:(
   bg-neutral-800 hover:bg-neutral-700
   border-neutral-800
+  no-underline!
   )
 `
 

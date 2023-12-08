@@ -35,11 +35,12 @@ const FooterChild = tw.div`
 `
 
 const FooterLink = tw(Link)`
-  font-semibold uppercase cursor-pointer hover:opacity-70 transition-opacity
+  font-semibold uppercase cursor-pointer hover:opacity-70 transition-opacity text-white no-underline
+  visited:text-white
 `
 
 const FilmGrain = tw.img`
-  w-full h-full overflow-hidden absolute top-0 mix-blend-screen opacity-40 object-cover z-10 pointer-events-none
+  w-full h-full overflow-hidden absolute top-0 mix-blend-screen opacity-60 object-cover z-10 pointer-events-none
 `
 
 const StyledCircleLogo = tw(CircleLogo)`

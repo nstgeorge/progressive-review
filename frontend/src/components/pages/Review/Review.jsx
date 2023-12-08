@@ -1,24 +1,26 @@
 import { Transition } from '@headlessui/react'
-import { ChatBubbleLeftIcon, MusicalNoteIcon } from '@heroicons/react/20/solid'
-import { InformationCircleIcon } from '@heroicons/react/24/outline'
+import { ChatBubbleLeftIcon, InformationCircleIcon, MusicalNoteIcon } from '@heroicons/react/24/outline'
 // import { Siapple, Sibandcamp, Sispotify } from '@icons-pack/react-simple-icons'
 import { useQuery } from '@tanstack/react-query'
-import { useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link, useParams } from 'react-router-dom'
 import RadarChart from 'react-svg-radar-chart'
 import { Tooltip } from 'react-tooltip'
+import readingTime from 'reading-time/lib/reading-time'
 import { siApple, siApplemusic, siBandcamp, siSpotify } from 'simple-icons'
 import styled, { css } from 'styled-components'
 import tw from 'twin.macro'
 import { BASE_URL } from '../../../hooks/api'
 import { reviewQuery } from '../../../hooks/loaders/reviewLoader'
 import { commaify } from '../../../hooks/util/commify'
+import useWindowDimensions from '../../../hooks/util/useWindowDimensions'
+import { Card, CardTitle } from '../../common/Card'
 import { ColumnContainer, PageContainer } from '../../common/Container'
 import Image from '../../common/Image'
 import Markdown from '../../common/Markdown'
-import { Title } from '../../common/Typography'
+import SignUp from './SignUp'
 
 const Shade = styled.div(({ show }) => [
   tw`
@@ -89,8 +91,8 @@ const BigCover = tw(Image)`
   group-hover:(brightness-75 blur-sm)
 `
 
-const FilmGrain = tw.img`
-  w-full absolute mix-blend-screen opacity-30 group-hover:blur-sm transition-all
+const FilmGrain = tw(motion.img)`
+  w-full absolute mix-blend-screen group-hover:blur-sm [transition-property: filter]
 `
 
 const ContentContainer = tw.div`
@@ -119,16 +121,21 @@ const LyricAttribution = tw.span`
 `
 
 const Links = tw.div`
-  flex flex-row flex-wrap gap-1 justify-around md:px-20 lg:justify-center w-full mb-4 h-9
+  flex flex-row flex-wrap gap-1 justify-around md:px-20 lg:justify-center w-full mb-4 min-h-[2.25rem]
 `
 
 const LinkBadge = styled.a(({ color }) => [
   tw`
-    text-xs font-semibold md:mr-1 px-2 py-1 flex flex-row rounded-full gap-1 border opacity-70 dark:opacity-90 items-center justify-center
-    leading-[1em]
-    hover:opacity-40 transition-opacity
+    text-xs font-semibold md:mr-1 px-2 py-1 flex flex-row rounded-md gap-1 border opacity-70 dark:opacity-90 items-center justify-center
+    leading-[1em] shadow-xl
+    transition-all
   `,
   css`
+    &:hover {
+      box-shadow: 0 0px 25px -5px #${color};
+      outline: solid;
+      outline-color: #${color};
+    } 
     color: #${color};
     border-color: #${color};
     > span {
@@ -150,7 +157,7 @@ const LinkIcon = styled.div(({ mask, color }) => [
 ])
 
 const PublishDates = tw.div`
-  text-neutral-500 text-base mt-2 xl:-mt-12
+  text-neutral-500 text-base my-2 xl:-mt-12
 `
 
 const Tags = tw.div`
@@ -159,28 +166,25 @@ const Tags = tw.div`
 
 const TagBadge = tw.div`
   text-xs font-semibold md:mr-1 px-2 py-1 flex flex-row gap-1.5 text-neutral-400 dark:text-neutral-500 fill-current uppercase items-center cursor-default
+  rounded-md transition-colors
+  hover:(
+    bg-neutral-100
+    dark:bg-neutral-800
+  )
 `
 
 const TagIcon = tw(ChatBubbleLeftIcon)`
-  h-5 w-5 fill-current mb-1
+  h-5 w-5 stroke-current mb-1
 `
 
-const CharacteristicsContainer = tw.div`
-  relative
+const CharacteristicsContainer = tw(Card)`
   scale-90 md:scale-100
-  flex flex-col px-2 lg:px-10
-  bg-gradient-to-tl
-  from-neutral-100 to-neutral-50 dark:(from-neutral-900 to-neutral-800) rounded-lg shadow-xl pb-10 pt-8 lg:pt-5 mt-10 mx-auto
+  px-2 lg:px-10
 `
-
 
 const CharacteristicsContent = tw.div`
   flex flex-col text-2xl lg:text-xl lg:flex-row gap-1 items-center
   px-3 md:px-10
-`
-
-const CharacteristicsTitle = tw(Title)`
-  text-4xl mb-5 lg:mb-10 text-neutral-600 dark:text-neutral-300 text-center lg:text-left
 `
 
 const RadarChartContainer = tw.div`
@@ -215,13 +219,21 @@ export default function Review(props) {
   const { reviewId } = useParams()
   const { data: review } = useQuery(reviewQuery(reviewId))
   const [showAlbumArt, setShowAlbumArt] = useState(false)
-  const { scrollYProgress } = useScroll()
+  const { scrollYProgress, scrollY } = useScroll()
+  const { width } = useWindowDimensions()
 
-  function useParallax(value, distance) {
+  const useParallax = (value, distance) => {
     return useTransform(value, [0, 1], [-distance, distance])
   }
 
-  const y = useParallax(scrollYProgress, 600);
+  const useBrightness = (value) => {
+    return useTransform(value, [0, 200], [0.4, 0])
+  }
+
+  const y = useParallax(scrollYProgress, width / 2)
+  const brightness = useBrightness(scrollY)
+
+  const time = readingTime(review.data.attributes.content)
 
   const album = review.data.attributes.album.data.attributes
   const cover = album.cover.data.attributes
@@ -248,8 +260,8 @@ export default function Review(props) {
         <title>{album.title} - The Progressive Review</title>
       </Helmet>
       <BigCoverContainer className="group" onClick={() => setShowAlbumArt(true)}>
-        <BigCover src={coverUrl} hash={coverHash} width={1200} height={1200} style={{ y, scale: 1.1 }} />
-        <FilmGrain src={'/img/filmgrain.jpg'} />
+        <BigCover src={coverUrl} hash={coverHash} width={width} height={width} style={{ y, scale: 1.1 }} hideSpinner />
+        <FilmGrain src={'/img/filmgrain.jpg'} style={{ opacity: brightness }} />
         <CoverTextContainer>
           <Transition show={true} appear={true}
             enter='transition-all ease-out duration-1000 delay-1000'
@@ -287,20 +299,28 @@ export default function Review(props) {
               </LinkBadge>
             ))}
           </Links>
+          
           <PublishDates>
             Review published {reviewPublishDate.toLocaleDateString()}
             {
               reviewUpdateDate - reviewPublishDate > REVIEW_UPDATE_WINDOW &&
               <span>, updated {reviewUpdateDate.toLocaleDateString()}</span>
             }
+            <br />
+            {
+              time.text
+            }
           </PublishDates>
+
           <Tags>
             <TagBadge id='vocal-style'><TagIcon /> {album.vocals}</TagBadge>
             <TagBadge id='genre'><TagIcon as={MusicalNoteIcon} /> {album.genre}</TagBadge>
             <Tooltip anchorId='vocal-style' content='Vocal Style' />
             <Tooltip anchorId='genre' content='Genre' />
           </Tags>
+
           <Markdown markdown={review.data.attributes.content} />
+
           {
             album.notableLyric && (
               <NotableLyric>
@@ -309,8 +329,9 @@ export default function Review(props) {
               </NotableLyric>
             )
           }
+
           <CharacteristicsContainer>
-            <CharacteristicsTitle>Characteristics</CharacteristicsTitle>
+            <CardTitle>Characteristics</CardTitle>
             <CharacteristicsContent>
               <RadarChartContainer>
                 <RadarChart captions={radarCaptions} data={radarData} size={300} options={{
@@ -328,6 +349,7 @@ export default function Review(props) {
               <Tooltip anchorId='about-char' content='What does this mean?' style={{ fontSize: '12px' }} />
             </CharacteristicsContent>
           </CharacteristicsContainer>
+          <SignUp />
         </Content>
       </ContentContainer>
       <Shade show={showAlbumArt} onClick={() => setShowAlbumArt(false)}>
@@ -350,5 +372,4 @@ export default function Review(props) {
       </Shade>
     </PageContainer >
   )
-
 }

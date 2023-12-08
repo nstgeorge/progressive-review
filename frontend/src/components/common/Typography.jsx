@@ -1,3 +1,4 @@
+import { Link as _Link } from 'react-router-dom'
 import tw from 'twin.macro'
 
 export const Title = tw.h1`
@@ -52,4 +53,18 @@ export const Header3 = tw.h3`
 
 export const Paragraph = tw.p`
 mt-4
+`
+
+export const Link = tw(_Link)`
+  transition-opacity
+  text-red-500 visited:text-purple-500
+  dark:(text-red-500 visited:text-purple-400)
+  underline
+  hover:(opacity-70)
+  px-2 py-1
+  -mx-2 -my-1
+  focus:(
+    ring-0! ring-offset-0! outline-none
+    bg-red-500 text-white! rounded
+  )
 `

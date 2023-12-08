@@ -7,6 +7,11 @@ html {
   overflow-x: hidden;
 }
 
+::selection {
+  background-color: rgb(239 68 68);
+  color: white;
+}
+
 /* Radar chart styling */
 
 .shape {
@@ -26,6 +31,12 @@ html {
 
 .scale {
   fill: none;
+}
+
+.react-tooltip {
+  font-size: 0.9rem !important;
+  border-radius: 0.3rem !important;
+  padding: 0.3rem 0.8rem !important;
 }
 
 @media (prefers-color-scheme: dark) {
