@@ -22,9 +22,10 @@ const Blur = styled(motion.div)(({ width, height }) => [
     flex items-center justify-center
     [&>div]:(absolute top-0 left-0 overflow-hidden saturate-50 block!)
   `,
+  // Reserve image size in case no blurhash exists
   css`
-    width: ${width};
-    height: ${height};
+    width: ${width}px;
+    height: ${height}px;
   `
 ])
 
@@ -54,18 +55,20 @@ export default function Image({ src, hash, width, height, hideSpinner, ...others
 
   return (
     <Container {...others}>
-      {
-        hash
-        ?
-        <Blur {...others}>
-          <Hash show={takingTooLong ? 'true' : undefined} hash={hash} width={width} height={height} punch={0} {...others} />
-          {
-            !hideSpinner &&
-            <Spinner show={takingTooLong ? 'true' : undefined} />
-          }
-        </Blur>
-        : <></>
-      }
+      <Blur width={width} height={height} {...others}>
+        {
+          hash
+          ? 
+            <>
+              <Hash show={takingTooLong ? 'true' : undefined} hash={hash} width={width} height={height} punch={0} {...others} />
+              {
+                !hideSpinner &&
+                <Spinner show={takingTooLong ? 'true' : undefined} />
+              }
+            </>
+          : <></>
+        }
+      </Blur>
       <RealImage src={src} width={width} height={height} {...others} onLoad={() => setIsLoaded(true)} isLoaded={isLoaded} />
     </Container>
   )
